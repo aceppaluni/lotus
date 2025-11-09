@@ -459,6 +459,10 @@ var walletSign = &cli.Command{
 			return err
 		}
 
+		if addr.Protocol() == address.Delegated {
+			msg = append([]byte{0x19, 0x46}, msg...)
+		}
+
 		sig, err := api.WalletSign(ctx, addr, msg)
 
 		if err != nil {
